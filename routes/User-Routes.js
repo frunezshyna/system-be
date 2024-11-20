@@ -12,4 +12,7 @@ router.post("/login", userController.loginUser);
 // Check if email exists
 router.post('/check-email', userController.checkEmail);
 
+// Get user details 
+router.post("/details", userController.getProfile);
+
 module.exports = router;  // Export the router once, after all routes are defined
