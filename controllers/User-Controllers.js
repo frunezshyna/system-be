@@ -142,7 +142,8 @@ module.exports.enroll = (req, res) => {
         if(err){
             res.send({
                 code: "ENROLLMENT-FAILED",
-                message: "There is a problem with your enrollment, please try again!"
+                message: "There is a problem with your enrollment, please try again!",
+                error: err
             })
         }else{
             res.send({
