@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 // Token Creation upon Login
-
 module.exports.createAccessToken = (user) => {
     const data = {
         id: user._id,
