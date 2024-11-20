@@ -41,3 +41,39 @@ module.exports,getAllCourses = (req, res) => {
         }
     })
 }
+
+// Get All Active Courses
+module.exports.getAllActiveCourses = (req, res) => {
+    return Course.find({isActive: true}).then(result => {
+        if(result == null || result.length === 0){
+            return res.send({
+                code: "COURSE-EMPTY",
+                message: "There is no added course yet."
+            })
+        }else{
+            return res.send({
+                code: "ALL-ACTIVE-COURSES-RESULT",
+                message: "Here are the list of the active courses.",
+                result: result
+            })
+        }
+    })
+}
+
+// Get All Inactive Courses
+module.exports.getAllInactiveCourses = (req, res) => {
+    return Course.find({isActive: false}).then(result => {
+        if(result == null || result.length === 0){
+            return res.send({
+                code: "COURSE-EMPTY",
+                message : "There is no added course yet."
+            })
+        }else{
+            return res.send({
+                code: "ALL-COURSES-RESULT",
+                message: "Here are the list of courses.",
+                result: result
+            })
+        }
+    })
+}
