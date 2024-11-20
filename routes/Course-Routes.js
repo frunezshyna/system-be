@@ -19,4 +19,7 @@ router.get("/all/inactive", courseController.getAllInactiveCourses);
 // Get specific course
 router.get("/search/:courseId", courseController.getSpecificCourse);
 
+// Archive course
+router.put("/archive/:courseId", courseController.archiveCourse);
+
 module.exports = router;
