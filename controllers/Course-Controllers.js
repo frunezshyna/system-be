@@ -96,3 +96,25 @@ module.exports.getSpecificCourse = (req, res) => {
         }
     })
 }
+
+// Archive Course
+module.exports.archiveCourse = (req, res) => {
+    const {courseId} = req.params;
+    const updateField = {
+        isActive: false
+    }
+    return Course.findByIdAndUpdate({courseId, updateField}).then(result => {
+        if(result === null || result.length === 0){
+            res.send({
+                code: "COURSE-NOT-FOUND",
+                message: "Cannot find course with the provided ID."
+            })
+        }else{
+            res.send({
+                code: "COURSE-ARCHIVED-SUCCESSFULLY",
+                message: "The course is now in archives.",
+                result: result
+            })
+        }
+    })
+}
