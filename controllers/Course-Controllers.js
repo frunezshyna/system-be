@@ -77,3 +77,22 @@ module.exports.getAllInactiveCourses = (req, res) => {
         }
     })
 }
+
+// Get Specific Course
+module.exports.getSpecificCourse = (req, res) => {
+    const {courseId} = req.params.courseId;
+    return Course.findById(courseId).then(result => {
+        if(result == null || result.length === 0){
+            return res.send({
+                code: "COURSE-NOT-FOUND",
+                message: "The course cannot be found."
+            })
+        }else{
+            return res.send({
+                code: "COURSE-FOUND",
+                message: "Here is the course.",
+                result: result
+            })
+        }
+    })
+}
