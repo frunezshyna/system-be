@@ -22,4 +22,7 @@ router.get("/search/:courseId", courseController.getSpecificCourse);
 // Archive course
 router.put("/archive/:courseId", courseController.archiveCourse);
 
+// Activate course
+router.put("/activate/:courseId", courseController.activateCourse);
+
 module.exports = router;
