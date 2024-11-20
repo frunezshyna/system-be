@@ -1,4 +1,5 @@
 const User = require("../models/User-Model.js");
+const Enroll = require("../models/Enrollment-Model.js");
 const bcryptjs = require("bcryptjs");
 const auth = require("../auth.js");
 
@@ -104,3 +105,50 @@ module.exports.checkEmail = (req,res) =>{
     }
     })
 }
+
+// Get user details
+module.exports.getProfile = (req, res) => {
+    let {_id} =req.body;
+
+    return UserActivation.findOne({id : _id}).then(result => {
+        if(result ==null) {
+            return res.send ({
+                code : "USER-DETAILS-NOT-FOUND",
+                message : "Please input a registered ID."
+            })
+        }else {
+            if(result.password) {
+                result.password = "*"
+            }
+        }
+            return res.send({
+                code: "USER-DETAILS-FOUND",
+                message : "The user with this id is found.",
+                return: result
+            })
+    })
+}
+
+// Enroll a user
+module.exports.enroll = (req, res) => {
+    const {id} = req.user;
+    
+    let newEnrollment = new Enroll({
+        userId: id,
+        enrolledCourse: req.body.enrolledCourse,
+        totalPrice: req.body.totalPrice
+    })
+    return Enroll.save().then((err, result) => {
+        if(err){
+            res.send({
+                code: "ENROLLMENT-FAILED",
+                message: "There is a problem with your enrollment, please try again!"
+            })
+        }else{
+            res.send({
+                code: "ENROLLMENT-SUCCESSFUL",
+                message: "Your are now enrolled!",
+                result: result
+            })
+        }
+    })
